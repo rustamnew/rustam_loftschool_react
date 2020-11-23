@@ -27,9 +27,8 @@ export class LoginPanel extends React.Component {
             registration: <Registration navigateTo={this.props.navigateTo} switchButton={this.switchButton}/>
         }
 
-        return <>
-            {panels[this.state.currentPanel]}
-        </>
+        return panels[this.state.currentPanel]
+        
         
     }
 }
