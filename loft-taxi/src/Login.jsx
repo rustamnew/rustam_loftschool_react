@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export const Login = (props) => {
     return (
         <form>
@@ -11,8 +12,12 @@ export const Login = (props) => {
     
             <input type='submit' value='Войти' onClick={(e) => {
                 e.preventDefault();
-                props.nav('home')
-            }}></input>
+                props.navigateTo('home')
+            }}/>
+            <button onClick={(e) => {
+                e.preventDefault()
+                props.switchButton()
+            }}>Регистрация</button>
         </form>
         )
 }

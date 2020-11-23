@@ -17,8 +17,13 @@ export const Registration = (props) => {
 
             <input type='submit' value='Зарегистрироваться' onClick={(e) => {
                 e.preventDefault();
-                props.nav('home')
+                props.navigateTo('home')
             }}></input>
+
+            <button onClick={(e) => {
+                e.preventDefault()
+                props.switchButton()
+            }}>Вход</button>
         </form>
     )
 }

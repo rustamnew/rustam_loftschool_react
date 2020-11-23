@@ -3,17 +3,13 @@ import './App.css';
 import {Home} from './Home'
 import {Profile} from './Profile'
 import {LoginPanel} from './LoginPanel'
-import {Login} from './Login'
-
-const pages = {
-  home: <Home/>,
-  profile: <Profile/>,
-  loginPanel: <LoginPanel />,
-}
+import {Header} from './Header'
 
 
 
 class App extends React.Component {
+
+  
 
   state = {currentPage: 'loginPanel'}
 
@@ -22,33 +18,17 @@ class App extends React.Component {
   }
 
   render() {
+    const pages = {
+      home: <Home/>,
+      profile: <Profile/>,
+      loginPanel: <LoginPanel />,
+    }
+
     if (this.state.currentPage == 'loginPanel') {
-      return <LoginPanel nav = {this.navigateTo}/>
-    } else
+      return <LoginPanel navigateTo = {this.navigateTo}/>
+    } 
     return <>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <button onClick={() => {
-                this.navigateTo('home')
-              }}>Карта</button>
-            </li>
-
-            <li>
-              <button onClick={() => {
-                this.navigateTo('profile')
-              }}>Профиль</button>
-            </li>
-
-            <li>
-              <button onClick={() => {
-                this.navigateTo('loginPanel')
-              }}>Выйти</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header navigateTo={this.navigateTo}/>
 
       <main>
         <section>
@@ -62,4 +42,3 @@ class App extends React.Component {
 }
 
 export default App;
-//{pages[this.state.currentPage]}
