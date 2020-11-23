@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React from "react"
 import './App.css';
+import {Home} from './Home'
+import {Profile} from './Profile'
+import {LoginPanel} from './LoginPanel'
+import {Header} from './Header'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends React.Component {
+
+  
+
+  state = {currentPage: 'loginPanel'}
+
+  navigateTo = (page) => {
+    this.setState({currentPage: page})
+  }
+
+  render() {
+    const pages = {
+      home: <Home/>,
+      profile: <Profile/>,
+      loginPanel: <LoginPanel />,
+    }
+
+    if (this.state.currentPage == 'loginPanel') {
+      return <LoginPanel navigateTo = {this.navigateTo}/>
+    } 
+    return <>
+      <Header navigateTo={this.navigateTo}/>
+
+      <main>
+        <section>
+            {pages[this.state.currentPage]}
+        </section>
+      </main>
+    </>;
+  }
+
+  
 }
 
 export default App;
