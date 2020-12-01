@@ -1,29 +1,29 @@
+import { TextField } from '@material-ui/core';
 import React from 'react';
+import Button from '@material-ui/core/Button';
+
 
 export const Registration = (props) => {
     return (
-        <form>
-            <label htmlFor='email'>Email</label>
-            <input id='email' type='email' name='email' size='28' />
+        <div className='registrationPanel'>
+            <div className='panelTitle'>Регистрация</div>
+            <form className='loginPanelForm'>
+                <TextField id='email' type='email' size='28' label='email'/>
 
-            <label htmlFor='name'>Имя</label>
-            <input id='name' type='text' size='28'></input>
+                <TextField id='name' type='text' size='28' label='Как вас зовут'/>
 
-            <label htmlFor='name'>Фамилия</label>
-            <input id='surname' type='text' size='28'></input>
+                <TextField id='password' type='password' label='password'/>
 
-            <label htmlFor='password'>Password</label>
-            <input id='password' type='password' name='password' size='28' />
+                <input className='submit input' type='submit' value='Зарегистрироваться' onClick={(e) => {
+                    e.preventDefault();
+                    props.navigateTo('home')
+                }}></input>
 
-            <input type='submit' value='Зарегистрироваться' onClick={(e) => {
-                e.preventDefault();
-                props.navigateTo('home')
-            }}></input>
-
-            <button onClick={(e) => {
-                e.preventDefault()
-                props.switchButton()
-            }}>Вход</button>
-        </form>
+                <button className='panelSwitch button' onClick={(e) => {
+                    e.preventDefault()
+                    props.switchButton()
+                }}>Войти</button>
+            </form>
+        </div>
     )
 }

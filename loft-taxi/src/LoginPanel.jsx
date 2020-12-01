@@ -1,4 +1,5 @@
 import React from 'react';
+import { withAuth } from './AuthContext';
 import {Login} from './Login'
 import {Registration} from './Registration'
 
@@ -27,9 +28,19 @@ export class LoginPanel extends React.Component {
             registration: <Registration navigateTo={this.props.navigateTo} switchButton={this.switchButton}/>
         }
 
-        return panels[this.state.currentPanel]
+        return <>
+            <div className='loginPage'>
+                <div className='loginPageLogo'></div>
+                <div className='loginPageInputs'>
+                    {panels[this.state.currentPanel]}
+                </div>
+            </div>
+        </>
+        
         
         
     }
 }
+
+export const LoginPanelWithAuth = withAuth(LoginPanel)
 

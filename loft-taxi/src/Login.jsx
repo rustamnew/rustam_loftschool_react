@@ -1,23 +1,26 @@
 import React from 'react'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 export const Login = (props) => {
     return (
-        <form>
-            <label htmlFor='email'>Email</label>
-            <input id='email' type='email' name='email' size='28' />
-    
-            <label htmlFor='password'>Password</label>
-            <input id='password' type='password' name='password' size='28' />
-    
-            <input type='submit' value='Войти' onClick={(e) => {
-                e.preventDefault();
-                props.navigateTo('home')
-            }}/>
-            <button onClick={(e) => {
-                e.preventDefault()
-                props.switchButton()
-            }}>Регистрация</button>
-        </form>
-        )
+        <div className='loginPanel'>
+            <div className='panelTitle'>Войти</div>
+            <form className='loginPanelForm'>
+                <TextField className='email input' id='email' type='email' label='email'/>
+        
+                <TextField className='password input' id='password' type='password' label='password' />
+        
+                <input className='submit input' type='submit' value='Войти' onClick={(e) => {
+                    e.preventDefault();
+                    props.navigateTo('home')
+                }}/>
+                <button className='panelSwitch button' onClick={(e) => {
+                    e.preventDefault()
+                    props.switchButton()
+                }}>Регистрация</button>
+            </form>
+        </div>
+    )
 }
