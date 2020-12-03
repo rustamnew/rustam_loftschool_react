@@ -3,22 +3,17 @@ import { withAuth } from './AuthContext';
 import {Login} from './Login'
 import {Registration} from './Registration'
 
-
-
-let buttonText = 'Регистрация'
-
-
 export class LoginPanel extends React.Component {
     state = {currentPanel: 'login'}
 
     switchButton = () => {
         if (this.state.currentPanel === 'login') {
             this.setState({currentPanel: 'registration'})
-            buttonText = 'Вход'
+            
         }
         if (this.state.currentPanel === 'registration') {
             this.setState({currentPanel: 'login'})
-            buttonText = 'Регистрация'
+            
         }
     }
 

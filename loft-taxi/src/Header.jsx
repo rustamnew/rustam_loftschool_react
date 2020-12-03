@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import {withAuth} from './AuthContext'
 
-
-export const Header = (props) => {
+const Header = (props) => {
     return (
         <header className='header'>
             <nav className='header__nav'>
@@ -21,6 +21,7 @@ export const Header = (props) => {
 
                     <li>
                     <Button className='nav__button' onClick={() => {
+                        props.logOut()
                         props.navigateTo('loginPanel')
                     }}>Выйти</Button>
                     </li>
@@ -29,3 +30,7 @@ export const Header = (props) => {
         </header>
     )
 }
+
+const EnhancedHeader = withAuth(Header)
+
+export {EnhancedHeader as Header}
