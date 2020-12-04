@@ -1,38 +1,174 @@
-.App {
-  text-align: center;
+ul, li {
+    list-style: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loginPage {
+    display: flex;
+    width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.loginPageLogo {
+    flex: 1;
+    height: 100vh;
+
+    background: url(img/LoginLogo.png) center center no-repeat, #1C1A19;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.loginPageInputs {
+    background: url(img/backgroundMap.png) no-repeat;
+    background-size: cover;
+    flex: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.header {
+    background: url(img/logo.png) left 2% top 50% no-repeat, #1C1A19;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
 }
 
-.App-link {
-  color: #61dafb;
+.header__nav-list {
+    display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav__button {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+
+    color: #FFFFFF;
+}
+
+.MuiButton-label {
+    color: #FFFFFF;
+    font-weight: 400;
+}
+.MuiButton-label:hover {
+    color: #FDBF5A;
+}
+
+.email.input {
+    margin-bottom: 30px;
+}
+
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.loginPanel {
+    background: #FFFFFF;
+    border-radius: 20px;
+    width: 520px;
+    min-height: 50%;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginPanelTextFields {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 20%;
+}
+
+
+
+.panelTitle {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+.loginPanelForm {
+    display: flex;
+    flex-direction: column;
+
+    width: 68%;
+}
+
+
+
+.submit.input {
+    background: #FDBF5A;
+    border-radius: 70px;
+    border: none;
+    padding: 16px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+
+    margin-bottom: 7%;
+}
+
+.submit.input:focus {
+    outline: none;
+}
+
+.panelSwitch {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.panelSwitchText {
+    color: #828282;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+
+    margin-right: 20px;
+}
+
+.panelSwitchButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    color: #FDBF5A;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.panelSwitchButton:focus {
+    outline: none;
+}
+
+.MuiTextField-root.loginPanelInput {
+    margin-bottom: 20px;
+}
+
+.MuiTextField-root.loginPanelInput:last-child {
+    margin: 0;
 }

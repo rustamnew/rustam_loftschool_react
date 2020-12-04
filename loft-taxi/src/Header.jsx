@@ -1,29 +1,36 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import {withAuth} from './AuthContext'
 
-export const Header = (props) => {
+const Header = (props) => {
     return (
-        <header>
-            <nav>
-                <ul>
+        <header className='header'>
+            <nav className='header__nav'>
+                <ul className='header__nav-list'>
                     <li>
-                    <button onClick={() => {
+                    <Button className='nav__button' onClick={() => {
                         props.navigateTo('home')
-                    }}>Карта</button>
+                    }}>Карта</Button>
                     </li>
 
                     <li>
-                    <button onClick={() => {
+                    <Button className='nav__button' onClick={() => {
                         props.navigateTo('profile')
-                    }}>Профиль</button>
+                    }}>Профиль</Button>
                     </li>
 
                     <li>
-                    <button onClick={() => {
+                    <Button className='nav__button' onClick={() => {
+                        props.logOut()
                         props.navigateTo('loginPanel')
-                    }}>Выйти</button>
+                    }}>Выйти</Button>
                     </li>
                 </ul>
             </nav>
         </header>
     )
 }
+
+const EnhancedHeader = withAuth(Header)
+
+export {EnhancedHeader as Header}

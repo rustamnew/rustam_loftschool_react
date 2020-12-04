@@ -2,26 +2,28 @@ import React from "react"
 import './App.css';
 import {Home} from './Home'
 import {Profile} from './Profile'
-import {LoginPanel} from './LoginPanel'
+import {LoginPanel, LoginPanelWithAuth} from './LoginPanel'
 import {Header} from './Header'
-
-
+import {withAuth} from './AuthContext'
 
 class App extends React.Component {
-
-  
 
   state = {currentPage: 'loginPanel'}
 
   navigateTo = (page) => {
-    this.setState({currentPage: page})
+    if (this.props.isLoggedIn) {
+      this.setState({currentPage: page})
+    } else {
+      this.setState({currentPage: 'loginPanel'})
+    }
+    
   }
 
   render() {
     const pages = {
-      home: <Home/>,
-      profile: <Profile/>,
-      loginPanel: <LoginPanel />,
+      home:(props) => <Home {... props}/>,
+      profile:(props) => <Profile {... props}/>,
+      loginPanel:(props) => <LoginPanelWithAuth {... props}/>,
     }
 
     if (this.state.currentPage == 'loginPanel') {
@@ -32,13 +34,12 @@ class App extends React.Component {
 
       <main>
         <section>
-            {pages[this.state.currentPage]}
+            {pages[this.state.currentPage]({navigateTo: this.navigateTo})}
         </section>
       </main>
     </>;
   }
 
-  
 }
 
-export default App;
+export default withAuth(App);

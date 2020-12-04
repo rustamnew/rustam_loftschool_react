@@ -1,29 +1,35 @@
+import { TextField } from '@material-ui/core';
 import React from 'react';
+import Button from '@material-ui/core/Button';
+
 
 export const Registration = (props) => {
     return (
-        <form>
-            <label htmlFor='email'>Email</label>
-            <input id='email' type='email' name='email' size='28' />
+        <div className='loginPanel'>
+            <div className='panelTitle'>Регистрация</div>
+            <form className='loginPanelForm'>
 
-            <label htmlFor='name'>Имя</label>
-            <input id='name' type='text' size='28'></input>
+                <div className='loginPanelTextFields'>
+                    <TextField className='loginPanelInput' id='email' type='email' label='email'/>
 
-            <label htmlFor='name'>Фамилия</label>
-            <input id='surname' type='text' size='28'></input>
+                    <TextField className='loginPanelInput' id='name' type='text' label='Как вас зовут'/>
 
-            <label htmlFor='password'>Password</label>
-            <input id='password' type='password' name='password' size='28' />
+                    <TextField className='loginPanelInput' id='password' type='password' label='password'/>
+                </div>
 
-            <input type='submit' value='Зарегистрироваться' onClick={(e) => {
-                e.preventDefault();
-                props.navigateTo('home')
-            }}></input>
+                <input className='submit input' type='submit' value='Зарегистрироваться' onClick={(e) => {
+                    e.preventDefault();
+                    props.navigateTo('home')
+                }}></input>
 
-            <button onClick={(e) => {
-                e.preventDefault()
-                props.switchButton()
-            }}>Вход</button>
-        </form>
+                <div className ='panelSwitch'>
+                    <div className='panelSwitchText'>Уже зарегестрированны?</div>
+                    <button className='panelSwitchButton' data-testid="switchButton" onClick={(e) => {
+                        e.preventDefault()
+                        props.switchButton()
+                    }}>Войти</button>
+                </div>
+            </form>
+        </div>
     )
 }
