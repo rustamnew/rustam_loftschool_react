@@ -3,38 +3,24 @@ import './App.css';
 import {Home} from './Home'
 import {Profile} from './Profile'
 import {LoginPanel, LoginPanelWithAuth} from './LoginPanel'
-import {Header} from './Header'
-import {withAuth} from './AuthContext'
+import { connect } from 'react-redux'
+import { Switch } from "react-router";
+import { Route } from "react-router-dom";
+import {PrivateRoute} from './PrivateRoute'
+import { Header } from "./Header";
 
 class App extends React.Component {
 
-  state = {currentPage: 'loginPanel'}
-
-  navigateTo = (page) => {
-    if (this.props.isLoggedIn) {
-      this.setState({currentPage: page})
-    } else {
-      this.setState({currentPage: 'loginPanel'})
-    }
-    
-  }
-
   render() {
-    const pages = {
-      home:(props) => <Home {... props}/>,
-      profile:(props) => <Profile {... props}/>,
-      loginPanel:(props) => <LoginPanelWithAuth {... props}/>,
-    }
-
-    if (this.state.currentPage == 'loginPanel') {
-      return <LoginPanel navigateTo = {this.navigateTo}/>
-    } 
     return <>
-      <Header navigateTo={this.navigateTo}/>
 
       <main>
-        <section>
-            {pages[this.state.currentPage]({navigateTo: this.navigateTo})}
+        <Route path='/main/' component={Header}/>
+        
+        <section className='section'>
+          <Route exact path = '/' component={LoginPanelWithAuth}/>
+          <PrivateRoute path = '/main/'  component={Home} />
+          <PrivateRoute path = '/main/profile' component={Profile}/>
         </section>
       </main>
     </>;
@@ -42,4 +28,6 @@ class App extends React.Component {
 
 }
 
-export default withAuth(App);
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn})
+)(App);
