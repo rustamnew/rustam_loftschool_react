@@ -7,7 +7,7 @@ export const PrivateRoute = connect(state => ({isLoggedIn: state.auth.isLoggedIn
         <Route 
             {...rest}
             render={props => 
-                isLoggedIn ? (<Component {...props} />) : (<Redirect to='/login'/>)}
+                isLoggedIn ? (<Component {...props} />) : (<Redirect to='/'/>)}
         />
     )
 )

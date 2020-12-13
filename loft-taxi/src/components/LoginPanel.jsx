@@ -37,5 +37,4 @@ export class LoginPanel extends React.Component {
     }
 }
 
-export const LoginPanelWithAuth = LoginPanel
 

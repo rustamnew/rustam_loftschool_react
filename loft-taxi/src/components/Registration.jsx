@@ -1,9 +1,11 @@
 import { TextField } from '@material-ui/core';
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+
+import {register} from '../actions'
 
 
-export const Registration = (props) => {
+const Registration = (props) => {
     return (
         <div className='loginPanel'>
             <div className='panelTitle'>Регистрация</div>
@@ -27,23 +29,9 @@ export const Registration = (props) => {
                     let name = document.getElementById('name').value
                     let surname = document.getElementById('surname').value
 
-                    let object = {
-                            email: email, 
-                            password: password,
-                            name: name, 
-                            surname: surname
-                        }
+                    console.log(props)
 
-                    let url = `https://loft-taxi.glitch.me/register`
-
-                    fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(object)
-                    }) 
-                    
+                    props.register(email, password, name, surname)     
                 }}></input>
 
                 <div className ='panelSwitch'>
@@ -57,3 +45,10 @@ export const Registration = (props) => {
         </div>
     )
 }
+
+const EnhancedRegistration = connect(
+    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    { register }
+)(Registration)
+
+export {EnhancedRegistration as Registration} 

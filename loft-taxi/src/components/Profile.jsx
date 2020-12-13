@@ -1,8 +1,9 @@
 import React from 'react'
-import { Header } from './Header'
 import TextField from '@material-ui/core/TextField';
-import profileLogo from './img/profileLogo.png'
-import cardIcon from './img/cardIcon.png'
+import profileLogo from '../img/profileLogo.png'
+import cardIcon from '../img/cardIcon.png'
+
+import {serverSendCard} from '../api'
 
 export const Profile = (props) => {
     return <>
@@ -55,28 +56,7 @@ export const Profile = (props) => {
                         localStorage.cardDate = cardDate
                         localStorage.cardCVC = cardCVC
 
-                        function getCookie(name) {
-                            let matches = document.cookie.match(new RegExp(
-                            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-                            ))
-                            return matches ? decodeURIComponent(matches[1]) : undefined
-                        }
-
-                        let object = {
-                            cardNumber: cardNumber,
-                            expiryDate: cardDate,
-                            cardName: cardOwnerName,
-                            cvc: cardCVC,
-                            token: getCookie('token')
-                        }
-
-                        fetch(`https://loft-taxi.glitch.me/card`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(object)
-                    }) 
+                        serverSendCard(cardOwnerName, cardNumber, cardDate, cardCVC)
                     }}/>
                 </div>
             </div>
