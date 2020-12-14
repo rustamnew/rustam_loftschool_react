@@ -20,7 +20,7 @@ const Login = (props) => {
                     <TextField className='loginPanelInput' id='password' type='password' label='password' />
                 </div>
                 
-                <input className='submit input' type='submit' value='Войти' onClick={(e) => {
+                <input className='submit input' type='submit' value='Войти' data-testid='loginButton' onClick={(e) => {
                     e.preventDefault();
                     let email = document.getElementById('email').value
                     let password = document.getElementById('password').value

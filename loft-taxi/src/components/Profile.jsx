@@ -45,7 +45,7 @@ export const Profile = (props) => {
                         </div>
                     </div>
 
-                    <input type='submit' className='submit input' value='Сохранить' onClick={(e) => {
+                    <input type='submit' id='submit' className='submit input' value='Сохранить' onClick={(e) => {
                         let cardOwnerName = document.getElementById('cardOwnerName').value
                         let cardNumber = document.getElementById('cardNumber').value
                         let cardDate = document.getElementById('cardDate').value
