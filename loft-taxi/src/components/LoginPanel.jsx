@@ -1,7 +1,7 @@
 import React from 'react';
-import { withAuth } from './AuthContext';
 import {Login} from './Login'
 import {Registration} from './Registration'
+
 
 export class LoginPanel extends React.Component {
     state = {currentPanel: 'login'}
@@ -19,8 +19,8 @@ export class LoginPanel extends React.Component {
 
     render() {
         const panels = {
-            login: <Login navigateTo={this.props.navigateTo} switchButton={this.switchButton}/>,
-            registration: <Registration navigateTo={this.props.navigateTo} switchButton={this.switchButton}/>
+            login: <Login switchButton={this.switchButton}/>,
+            registration: <Registration switchButton={this.switchButton}/>
         }
 
         return <>
@@ -37,5 +37,4 @@ export class LoginPanel extends React.Component {
     }
 }
 
-export const LoginPanelWithAuth = withAuth(LoginPanel)
 

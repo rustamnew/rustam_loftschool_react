@@ -1,6 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import {withAuth} from './AuthContext'
+import { connect } from 'react-redux'
+import { logOut } from '../actions'
+import { Link } from 'react-router-dom';
 
 const Header = (props) => {
     return (
@@ -8,29 +10,28 @@ const Header = (props) => {
             <nav className='header__nav'>
                 <ul className='header__nav-list'>
                     <li>
-                    <Button className='nav__button' onClick={() => {
-                        props.navigateTo('home')
-                    }}>Карта</Button>
+                    <Button component={ Link } to="/main/home" className='nav__button'>Карта</Button>
                     </li>
 
                     <li>
-                    <Button className='nav__button' onClick={() => {
-                        props.navigateTo('profile')
-                    }}>Профиль</Button>
+                    <Button component={ Link } to="/main/profile" className='nav__button' >Профиль</Button>
                     </li>
 
                     <li>
-                    <Button className='nav__button' onClick={() => {
+                    <Button component={ Link } to="/" className='nav__button' onClick={() => {
                         props.logOut()
-                        props.navigateTo('loginPanel')
                     }}>Выйти</Button>
                     </li>
                 </ul>
             </nav>
         </header>
+        
     )
 }
 
-const EnhancedHeader = withAuth(Header)
+const EnhancedHeader = connect(
+    null,
+    { logOut }
+)(Header)
 
 export {EnhancedHeader as Header}

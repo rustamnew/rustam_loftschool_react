@@ -1,10 +1,14 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import {withAuth} from './AuthContext'
+import {connect} from 'react-redux'
+import {authenticate} from '../actions'
+import { useHistory } from "react-router-dom";
 
 
 const Login = (props) => {
+    
+    const history = useHistory();
+
     return (
         <div className='loginPanel'>
             <div className='panelTitle'>Войти</div>
@@ -16,16 +20,19 @@ const Login = (props) => {
                     <TextField className='loginPanelInput' id='password' type='password' label='password' />
                 </div>
                 
-                <input className='submit input' type='submit' value='Войти' onClick={(e) => {
+                <input className='submit input' type='submit' value='Войти' data-testid='loginButton' onClick={(e) => {
                     e.preventDefault();
                     let email = document.getElementById('email').value
                     let password = document.getElementById('password').value
-                    props.logIn(email, password);
-                    props.navigateTo('home')
-
-                    console.log(email)
-                    console.log(password)
+                    props.authenticate(email, password);
+                    console.log(props)
+                    if (props.isLoggedIn === true) {
+                        document.cookie = 'token=AUTH_TOKEN'
+                        console.log(document.cookie)
+                        history.push('/main/home')
+                    }
                 }}/>
+                
                 <div className ='panelSwitch'>
                     <div className='panelSwitchText'>Новый пользователь?</div>
                     <button className='panelSwitchButton' data-testid="switchButton" onClick={(e) => {
@@ -39,6 +46,9 @@ const Login = (props) => {
     )
 }
 
-const EnhancedLogin = withAuth(Login)
+const EnhancedLogin = connect(
+    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    { authenticate }
+)(Login)
 
 export {EnhancedLogin as Login}

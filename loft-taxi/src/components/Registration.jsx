@@ -1,9 +1,11 @@
 import { TextField } from '@material-ui/core';
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+
+import {register} from '../actions'
 
 
-export const Registration = (props) => {
+const Registration = (props) => {
     return (
         <div className='loginPanel'>
             <div className='panelTitle'>Регистрация</div>
@@ -12,14 +14,24 @@ export const Registration = (props) => {
                 <div className='loginPanelTextFields'>
                     <TextField className='loginPanelInput' id='email' type='email' label='email'/>
 
-                    <TextField className='loginPanelInput' id='name' type='text' label='Как вас зовут'/>
+                    <TextField className='loginPanelInput' id='name' type='text' label='Имя'/>
+
+                    <TextField className='loginPanelInput' id='surname' type='text' label='Фамилия'/>
 
                     <TextField className='loginPanelInput' id='password' type='password' label='password'/>
                 </div>
 
                 <input className='submit input' type='submit' value='Зарегистрироваться' onClick={(e) => {
                     e.preventDefault();
-                    props.navigateTo('home')
+
+                    let email = document.getElementById('email').value
+                    let password = document.getElementById('password').value
+                    let name = document.getElementById('name').value
+                    let surname = document.getElementById('surname').value
+
+                    console.log(props)
+
+                    props.register(email, password, name, surname)     
                 }}></input>
 
                 <div className ='panelSwitch'>
@@ -33,3 +45,10 @@ export const Registration = (props) => {
         </div>
     )
 }
+
+const EnhancedRegistration = connect(
+    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    { register }
+)(Registration)
+
+export {EnhancedRegistration as Registration} 
