@@ -1,6 +1,7 @@
 import React from 'react';
 import {Login} from './Login'
 import {Registration} from './Registration'
+localStorage.removeItem('route')
 
 
 export class LoginPanel extends React.Component {

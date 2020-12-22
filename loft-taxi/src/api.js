@@ -62,9 +62,10 @@ export const serverGetAddress = async () => {
 }
 
 export const serverGetRoute = async (address1, address2) => {
-    localStorage.removeItem('route')
     let url = fetch(`https://loft-taxi.glitch.me/route?address1=${address1}&address2=${address2}`).then((res) => res.json())
-    .then( (data) => localStorage.route = data)
+    .then( (data) => {if(data != ''){
+        localStorage.setItem('route', JSON.stringify(data))
+    }})
     return url
 }
 

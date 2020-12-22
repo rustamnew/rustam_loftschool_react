@@ -17,8 +17,8 @@ const Address = (props) => {
     
     const addressForm = (element) => {
         addressFormNode = element
-        select1 = addressFormNode.children.selectors.children.select1
-        select2 = addressFormNode.children.selectors.children.select2
+        select1 = document.querySelector('#select1')
+        select2 = document.querySelector('#select2')
 
         for (let address of addressesArray) {
             let option = document.createElement('option')
@@ -34,7 +34,20 @@ const Address = (props) => {
         }
         select1.value = ''
         select2.value = ''
+        
+        if (!localStorage.cardOwnerName ||
+            !localStorage.cardNumber ||
+            !localStorage.cardDate ||
+            !localStorage.cardCVC) {
+                let address = document.querySelector('#address')
+                console.log(address)
+                let elem = document.createElement('div')
+                elem.classList.add('cardInfoRequire')
+                elem.innerHTML = 'Заполните платежные данные'
+                address.append(elem)
+        }
     }
+    
 
     const addressFilter = (e) => {
         let array1 = localStorage.addresses.split(',')
@@ -99,7 +112,6 @@ const Address = (props) => {
                     }
                 }
                 break
-            
         }
     }
 
@@ -157,7 +169,18 @@ const Address = (props) => {
                     let address1 = document.querySelector('#select1').value
                     let address2 = document.querySelector('#select2').value
                     props.route(address1, address2)
-                    fetch(`https://api.mapbox.com/directions/v5/mapbox/cycling/-84.518641,39.134270;-84.512023,39.102779?geometries=geojson&access_token=${token}`)
+                    if (address1 && address2) {
+                        let waitForBuildRoute = () => {
+                            if (localStorage.route) {
+                                props.drawLine(JSON.parse(localStorage.route))
+
+                            } else {
+                                console.log('loading')
+                                setTimeout(waitForBuildRoute, 1000)
+                            }
+                        }
+                        setTimeout(waitForBuildRoute, 1000)
+                    }
                 }}/>
             </form>
         </div>
