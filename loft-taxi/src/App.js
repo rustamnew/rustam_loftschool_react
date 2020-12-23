@@ -20,7 +20,7 @@ class App extends React.Component {
         
         <section className='section'>
           <Route exact path = '/' component={LoginPanel}/>
-          <PrivateRoute path = '/main/'  component={Home} />
+          <Route path = '/main/'  component={Home} />
           <PrivateRoute path = '/main/profile' component={Profile}/>
         </section>
       </main>

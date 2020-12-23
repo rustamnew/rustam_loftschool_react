@@ -1,8 +1,18 @@
 import React from 'react';
-import Map from './Map'
+import {Map} from './Map'
+import {connect} from 'react-redux'
 
-export const Home = () => {
+
+
+const Home = (props) => {    
     return <>
-        <Map />
+        <Map/>
     </>
 }
+
+const EnhancedHome = connect(
+    null,
+    {}
+)(Home)
+
+export {EnhancedHome as Home}

@@ -1,13 +1,26 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux'
-import {authenticate} from '../actions'
+import {authenticate, address} from '../actions'
 import { useHistory } from "react-router-dom";
+
 
 
 const Login = (props) => {
     
     const history = useHistory();
+
+    props.address()
+
+    let func = () => {
+        if (props.isLoggedIn === true) {
+            document.cookie = 'token=AUTH_TOKEN'
+            history.push('/main/home')
+            clearInterval(interval)
+        }
+    }
+    let interval = setInterval(func, 1000)
+    
 
     return (
         <div className='loginPanel'>
@@ -25,12 +38,6 @@ const Login = (props) => {
                     let email = document.getElementById('email').value
                     let password = document.getElementById('password').value
                     props.authenticate(email, password);
-                    console.log(props)
-                    if (props.isLoggedIn === true) {
-                        document.cookie = 'token=AUTH_TOKEN'
-                        console.log(document.cookie)
-                        history.push('/main/home')
-                    }
                 }}/>
                 
                 <div className ='panelSwitch'>
@@ -48,7 +55,7 @@ const Login = (props) => {
 
 const EnhancedLogin = connect(
     (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-    { authenticate }
+    { authenticate, address }
 )(Login)
 
 export {EnhancedLogin as Login}

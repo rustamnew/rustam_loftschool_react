@@ -19,6 +19,7 @@ const Header = (props) => {
 
                     <li>
                     <Button component={ Link } to="/" className='nav__button' onClick={() => {
+                        console.log(props)
                         props.logOut()
                     }}>Выйти</Button>
                     </li>

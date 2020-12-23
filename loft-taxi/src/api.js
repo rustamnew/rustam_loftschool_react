@@ -54,3 +54,19 @@ export const serverSendCard = async (cardOwnerName, cardNumber, cardDate, cardCV
         body: JSON.stringify(object)
     })
 }
+
+export const serverGetAddress = async () => {
+    let url = fetch(`https://loft-taxi.glitch.me/addressList`).then((res) => res.json())
+    .then( (data) => localStorage.addresses = data.addresses)
+    return url
+}
+
+export const serverGetRoute = async (address1, address2) => {
+    let url = fetch(`https://loft-taxi.glitch.me/route?address1=${address1}&address2=${address2}`).then((res) => res.json())
+    .then( (data) => {if(data != ''){
+        localStorage.setItem('route', JSON.stringify(data))
+    }})
+    return url
+}
+
+
