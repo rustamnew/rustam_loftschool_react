@@ -1,10 +1,10 @@
 import React from 'react';
-import {Login} from '../components/Login'
+import {Login} from '../../components/LoginPage/Login'
 import { fireEvent, getByTestId, getByText, render } from "@testing-library/react";
 
 import {BrowserRouter} from 'react-router-dom'
 import { Provider } from 'react-redux';
-import {store} from '../store'
+import {store} from '../../store'
 
 describe('Login', () => {
     it('render login forms', () => {
@@ -15,8 +15,8 @@ describe('Login', () => {
                 </Provider>
             </BrowserRouter>
         )
-        let email = container.getByLabelText('email')
-        let password = container.getByLabelText('password')
+        let email = container.getByTestId('email')
+        let password = container.getByTestId('password')
         let button = container.getByTestId('loginButton')
         expect(email).toBeTruthy()
         expect(password).toBeTruthy()
