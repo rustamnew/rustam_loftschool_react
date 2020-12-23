@@ -3,7 +3,7 @@ import './App.css';
 
 import {Home} from './components/Home'
 import {Profile} from './components/Profile'
-import {LoginPanel} from './components/LoginPanel'
+import {LoginPanel} from './components/LoginPage/LoginPanel'
 import { Header } from "./components/Header";
 
 import { connect } from 'react-redux'
@@ -20,7 +20,7 @@ class App extends React.Component {
         
         <section className='section'>
           <Route exact path = '/' component={LoginPanel}/>
-          <Route path = '/main/'  component={Home} />
+          <PrivateRoute path = '/main/'  component={Home} />
           <PrivateRoute path = '/main/profile' component={Profile}/>
         </section>
       </main>

@@ -4,6 +4,7 @@ import profileLogo from '../img/profileLogo.png'
 import cardIcon from '../img/cardIcon.png'
 
 import {serverSendCard} from '../api'
+import { Formik, Field } from 'formik';
 
 export const Profile = (props) => {
     return <>
@@ -13,51 +14,106 @@ export const Profile = (props) => {
                     <div className='modalTitle'>Профиль</div>
                     <div className='modalSubTitle'>Введите платёжные данные</div>
 
-                    <div className='modalContent'>
-                        <div className='modalInputs'>
-                            <TextField className='modalInput' type='text' label='Имя владельца' id='cardOwnerName' defaultValue={localStorage.cardOwnerName}/>
+                    <Formik 
+                        onSubmit={(value) => {
+                            console.log(value)
+                            serverSendCard(value.name, value.number, value.date, value.cvc)
+                        }}
 
-                            <TextField className='modalInput' type='text' label='Номер карты' id='cardNumber' defaultValue={localStorage.cardNumber}/>
+                        initialValues={{name: localStorage.cardOwnerName, number: localStorage.cardNumber, date: localStorage.cardDate, cvc: localStorage.cardCVC}}
 
-                            <div className='modalInputRow'>
-                                <TextField className='modalInputSmall' type='text' label='MM/YY' id='cardDate' defaultValue={localStorage.cardDate}/>
+                        validate={values => {
+                            const errors = {
+                                name: '',
+                                number: '',
+                                date: '',
+                                cvc: ''
+                            };
 
-                                <TextField className='modalInputSmall' type='number' label='CVC' id='cardCVC' defaultValue={localStorage.cardCVC}/>
-                            </div>
-                        </div>
+                            if (values.name.length < 1) {
+                                errors.name = "Invalid";
+                                return errors
+                            } 
+                            if (values.number.length < 16) {
+                                errors.password = "Invalid"
+                                return errors
+                            }
+                            if (!values.date.includes('/')) {
+                                errors.date = 'Invalid'
+                                return errors
+                            }
+                            if (values.cvc <= 2) {
+                                errors.cvc = 'Invalid'
+                                return errors
+                            }
+                        }}
+                        
+                        render={ ({ handleSubmit}) => {
+                            return (
+                                <form className='modalForm' onSubmit={handleSubmit}>
+                                    <div className='modalContent'>
+                                        <div className='modalInputs'>
+                                            <label htmlFor='name'>name</label>
+                                            <Field 
+                                            className='modalInput' 
+                                            name='name' 
+                                            id='cardOwnerName' />
 
-                        <div className='modalDisplay'>
-                            <div className='card'>
-                                <div className='cardRow'>
-                                    <img src={profileLogo}/>
-                                    <div className='cardDate'>{localStorage.cardDate}</div>
-                                </div>
+                                            <label htmlFor='number'>Cardnumber</label>
+                                            <Field 
+                                            className='modalInput' 
+                                            name='number'
+                                            id='cardNumber' />
 
-                                <div className='cardRow'>
-                                    <div className='cardNumber'>{localStorage.cardNumber}</div>
-                                </div>
+                                            <div className='modalInputRow'>
+                                                <label htmlFor='date'>date</label>
+                                                <Field 
+                                                className='modalInputSmall' 
+                                                name='date'
+                                                id='cardDate' />
 
-                                <div className='cardRow'>
-                                    <img src={cardIcon}/>
-                                    <div className='mastercardIcon'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                <label htmlFor='cvc'>cvc</label>
+                                                <Field 
+                                                className='modalInputSmall' 
+                                                name='cvc'
+                                                type='number' 
+                                                id='cardCVC' />
+                                            </div>
+                                        </div>
 
-                    <input type='submit' id='submit' className='submit input' value='Сохранить' onClick={(e) => {
-                        let cardOwnerName = document.getElementById('cardOwnerName').value
-                        let cardNumber = document.getElementById('cardNumber').value
-                        let cardDate = document.getElementById('cardDate').value
-                        let cardCVC = document.getElementById('cardCVC').value
+                                        <div className='modalDisplay'>
+                                            <div className='card'>
+                                                <div className='cardRow'>
+                                                    <img src={profileLogo}/>
+                                                    <div className='cardDate'>{localStorage.cardDate}</div>
+                                                </div>
 
-                        localStorage.cardOwnerName = cardOwnerName
-                        localStorage.cardNumber = cardNumber
-                        localStorage.cardDate = cardDate
-                        localStorage.cardCVC = cardCVC
+                                                <div className='cardRow'>
+                                                    <div className='cardNumber'>{localStorage.cardNumber}</div>
+                                                </div>
 
-                        serverSendCard(cardOwnerName, cardNumber, cardDate, cardCVC)
-                    }}/>
+                                                <div className='cardRow'>
+                                                    <img src={cardIcon}/>
+                                                    <div className='mastercardIcon'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type='submit' id='submit' className='submit input' value='Сохранить' onClick={(e) => {
+                                            let cardOwnerName = document.getElementById('cardOwnerName').value
+                                            let cardNumber = document.getElementById('cardNumber').value
+                                            let cardDate = document.getElementById('cardDate').value
+                                            let cardCVC = document.getElementById('cardCVC').value
+                                            localStorage.cardOwnerName = cardOwnerName
+                                            localStorage.cardNumber = cardNumber
+                                            localStorage.cardDate = cardDate
+                                            localStorage.cardCVC = cardCVC
+                                        }}/>
+                                    
+                                </form>
+                            )
+                        }}
+                    />
                 </div>
             </div>
         </div>

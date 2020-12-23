@@ -5,11 +5,10 @@ import {route} from '../actions'
 import carStandart from '../img/carStandart.png'
 import carPremium from '../img/carPremium.png'
 import carBusiness from '../img/carBusiness.png'
-
-let token = 'pk.eyJ1IjoicnVzdGFtbmV3IiwiYSI6ImNraTA5ajg2eTBpaGQyc3Frc3Q4eDl1YmMifQ.f62dquorxx35MBx07qc8-g'
-
+import { Field, Formik } from 'formik';
 
 const Address = (props) => {
+    console.log(localStorage.addresses)
     let addressesArray = localStorage.addresses.split(',')
     let addressFormNode
     let select1
@@ -119,8 +118,8 @@ const Address = (props) => {
         <div className='address' id='address'>
             <form id='addressForm' ref={addressForm} onChange={(e) => {addressFilter(e)}} className='addressForm'>
                 <div className='selectors' id='selectors'>
-                    <select className='selector' id='select1' form='addressForm'/>
-                    <select className='selector' id='select2' form='addressForm'/>
+                    <select className='selector' id='select1' form='addressForm' data-testid='select1'/>
+                    <select className='selector' id='select2' form='addressForm' data-testid='select2'/>
                 </div>
             
                 <ul className='carsList'>

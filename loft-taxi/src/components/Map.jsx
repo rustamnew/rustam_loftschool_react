@@ -57,39 +57,5 @@ export class Map extends React.Component {
     }
 }
 
-/*
-drawLine = (coords) => {
-        this.map.on('load', function () {
-            console.log('drawLine')
-            console.log(this)
-            console.log(this.map)
-            this.map.addSource('route', {
-            'type': 'geojson',
-            'data': {
-                'type': 'Feature',
-                'properties': {},
-                'geometry': {
-                    'type': 'LineString',
-                    'coordinates': coords
-                }
-            }
-            });
-            this.map.addLayer({
-                'id': 'route',
-                'type': 'line',
-                'source': 'route',
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                'paint': {
-                    'line-color': '#888',
-                    'line-width': 8
-                }
-            });
-        });
-    }
-*/ 
-
 
 
