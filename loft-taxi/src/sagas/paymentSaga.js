@@ -1,4 +1,4 @@
-import { takeEvery, call, put} from 'redux-saga/effects'
+import { takeEvery, call} from 'redux-saga/effects'
 import {CARD} from '../actions'
 import {serverSendCard} from '../api'
 

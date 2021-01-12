@@ -5,7 +5,6 @@ import {route} from '../actions'
 import carStandart from '../img/carStandart.png'
 import carPremium from '../img/carPremium.png'
 import carBusiness from '../img/carBusiness.png'
-import { Field, Formik } from 'formik';
 
 const Address = (props) => {
     console.log(localStorage.addresses)
@@ -59,8 +58,8 @@ const Address = (props) => {
                 array2 = localStorage.addresses.split(',')
                 
                 for (let i = 0; i < addressesArray.length; i++){
-                    if(select1.value == array2[i] && select1.value !== '') {
-                        if (select2.value == '') {
+                    if(select1.value === array2[i] && select1.value !== '') {
+                        if (select2.value === '') {
                             wasEmpty = true
                         } else {
                             value = select1.value
@@ -87,8 +86,8 @@ const Address = (props) => {
                 array1 = localStorage.addresses.split(',')
                 
                 for (let i = 0; i < addressesArray.length; i++){
-                    if(select2.value == array1[i] && select2.value !== '') {
-                        if (select1.value == '') {
+                    if(select2.value === array1[i] && select2.value !== '') {
+                        if (select1.value === '') {
                             wasEmpty = true
                         } else {
                             value = select1.value
@@ -110,6 +109,8 @@ const Address = (props) => {
                         break
                     }
                 }
+                break
+            default:
                 break
         }
     }

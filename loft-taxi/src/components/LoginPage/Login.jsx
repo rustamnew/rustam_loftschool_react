@@ -1,5 +1,4 @@
 import React from 'react'
-import TextField from '@material-ui/core/TextField';
 import {connect} from 'react-redux'
 import {authenticate, address} from '../../actions'
 import { useHistory } from "react-router-dom";
