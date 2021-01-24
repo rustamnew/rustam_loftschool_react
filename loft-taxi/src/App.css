@@ -502,18 +502,41 @@ input[type=number] {
 }
 
 .addressForm.disabled {
-    opacity: 0.5;
+    opacity: 0;
     pointer-events: none;
 }
 
 .cardInfoRequire {
     position: absolute;
-    top: 5%;
-    width: 80%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardInfoRequire .cardInfoButton {
+    margin: 0;
+}
+
+.cardInfoText {
     text-align: center;
     font-size: 1.8rem;
     font-weight: 700;
     font-family: Roboto;
+    width: 80%;
+    margin-bottom: 30px;
 }
+
+.cardInfoRedirect {
+    position: absolute;
+    top: 25%;
+}
+
+
 
 
