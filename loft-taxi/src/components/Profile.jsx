@@ -3,116 +3,84 @@ import profileLogo from '../img/profileLogo.png'
 import cardIcon from '../img/cardIcon.png'
 
 import {serverSendCard} from '../api'
-import { Formik, Field } from 'formik';
+import TextField from '@material-ui/core/TextField';
+import { useHistory } from "react-router-dom";
+
 
 export const Profile = (props) => {
+    const history = useHistory();
+    
     return <>
         <div className='profile'>
             <div className='modalBackground'>
                 <div className='modal'>
                     <div className='modalTitle'>Профиль</div>
+
                     <div className='modalSubTitle'>Введите платёжные данные</div>
 
-                    <Formik 
-                        onSubmit={(value) => {
-                            console.log(value)
-                            serverSendCard(value.name, value.number, value.date, value.cvc)
-                        }}
+                    <form className='modalForm' onSubmit={serverSendCard()}>
+                        <div className='modalContent'>
+                            <div className='modalInputs'>
+                                <TextField 
+                                className='modalInput' 
+                                label='Имя' 
+                                id='cardOwnerName'
+                                defaultValue={localStorage.cardOwnerName} />
 
-                        initialValues={{name: localStorage.cardOwnerName, number: localStorage.cardNumber, date: localStorage.cardDate, cvc: localStorage.cardCVC}}
+                                <TextField 
+                                className='modalInput' 
+                                label='Номер карты'
+                                id='cardNumber' 
+                                defaultValue={localStorage.cardNumber}/>
 
-                        validate={values => {
-                            const errors = {
-                                name: '',
-                                number: '',
-                                date: '',
-                                cvc: ''
-                            };
+                                <div className='modalInputRow'>
+                                    <TextField
+                                    className='modalInputSmall' 
+                                    label='ММ/ГГ'
+                                    id='cardDate' 
+                                    defaultValue={localStorage.cardDate}/>
 
-                            if (values.name.length < 1) {
-                                errors.name = "Invalid";
-                                return errors
-                            } 
-                            if (values.number.length < 16) {
-                                errors.password = "Invalid"
-                                return errors
-                            }
-                            if (!values.date.includes('/')) {
-                                errors.date = 'Invalid'
-                                return errors
-                            }
-                            if (values.cvc <= 2) {
-                                errors.cvc = 'Invalid'
-                                return errors
-                            }
-                        }}
-                        
-                        render={ ({ handleSubmit}) => {
-                            return (
-                                <form className='modalForm' onSubmit={handleSubmit}>
-                                    <div className='modalContent'>
-                                        <div className='modalInputs'>
-                                            <label htmlFor='name'>name</label>
-                                            <Field 
-                                            className='modalInput' 
-                                            name='name' 
-                                            id='cardOwnerName' />
+                                    <TextField 
+                                    className='modalInputSmall' 
+                                    label='CVC'
+                                    type='password'
+                                    id='cardCVC' 
+                                    defaultValue={localStorage.cardCVC}/>
+                                </div>
+                            </div>
 
-                                            <label htmlFor='number'>Cardnumber</label>
-                                            <Field 
-                                            className='modalInput' 
-                                            name='number'
-                                            id='cardNumber' />
-
-                                            <div className='modalInputRow'>
-                                                <label htmlFor='date'>date</label>
-                                                <Field 
-                                                className='modalInputSmall' 
-                                                name='date'
-                                                id='cardDate' />
-
-                                                <label htmlFor='cvc'>cvc</label>
-                                                <Field 
-                                                className='modalInputSmall' 
-                                                name='cvc'
-                                                type='number' 
-                                                id='cardCVC' />
-                                            </div>
-                                        </div>
-
-                                        <div className='modalDisplay'>
-                                            <div className='card'>
-                                                <div className='cardRow'>
-                                                    <img src={profileLogo}/>
-                                                    <div className='cardDate'>{localStorage.cardDate}</div>
-                                                </div>
-
-                                                <div className='cardRow'>
-                                                    <div className='cardNumber'>{localStorage.cardNumber}</div>
-                                                </div>
-
-                                                <div className='cardRow'>
-                                                    <img src={cardIcon}/>
-                                                    <div className='mastercardIcon'></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div className='modalDisplay'>
+                                <div className='card'>
+                                    <div className='cardRow'>
+                                        <img src={profileLogo}/>
+                                        <div className='cardDate'>{localStorage.cardDate}</div>
                                     </div>
-                                    <input type='submit' id='submit' className='submit input' value='Сохранить' onClick={(e) => {
-                                            let cardOwnerName = document.getElementById('cardOwnerName').value
-                                            let cardNumber = document.getElementById('cardNumber').value
-                                            let cardDate = document.getElementById('cardDate').value
-                                            let cardCVC = document.getElementById('cardCVC').value
-                                            localStorage.cardOwnerName = cardOwnerName
-                                            localStorage.cardNumber = cardNumber
-                                            localStorage.cardDate = cardDate
-                                            localStorage.cardCVC = cardCVC
-                                        }}/>
-                                    
-                                </form>
-                            )
-                        }}
-                    />
+
+                                    <div className='cardRow'>
+                                        <div className='cardNumber'>{localStorage.cardNumber}</div>
+                                    </div>
+
+                                    <div className='cardRow'>
+                                        <img src={cardIcon}/>
+                                        <div className='mastercardIcon'></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type='submit' id='submit' className='submit input' value='Сохранить' onClick={(e) => {
+                                e.preventDefault()
+                                let cardOwnerName = document.getElementById('cardOwnerName').value
+                                let cardNumber = document.getElementById('cardNumber').value
+                                let cardDate = document.getElementById('cardDate').value
+                                let cardCVC = document.getElementById('cardCVC').value
+                                localStorage.cardOwnerName = cardOwnerName
+                                localStorage.cardNumber = cardNumber
+                                localStorage.cardDate = cardDate
+                                localStorage.cardCVC = cardCVC
+                                history.push('/main/home')
+                            }}/>
+                        
+                    </form>
                 </div>
             </div>
         </div>

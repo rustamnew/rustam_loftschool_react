@@ -1,81 +1,75 @@
-import { Formik, Field } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
+import {authenticate, register} from '../../actions'
+import TextField from '@material-ui/core/TextField';
 
-import {register} from '../../actions'
 
 
 const Registration = (props) => {
     return (
         <div className='loginPanel'>
             <div className='panelTitle'>Регистрация</div>
-            <Formik
-                onSubmit={(value) => {
-                    console.log(value)
-                    props.register(value.email, value.password , value.name, value.surname) 
-                }}
 
-                validate={values => {
-                    const errors = {
-                        email: '',
-                        password: '',
-                        name: '',
-                        surname: ''
-                    };
+            <form className='loginPanelForm'>
+                <div className='loginPanelTextFields'>
+                    <TextField 
+                    className='loginPanelInput' 
+                    id='email' 
+                    type='email' 
+                    label='Email' 
+                    data-testid='email'/>
 
-                    if (!values.email.includes("@")) {
-                        errors.email = "Invalid";
-                        return errors
-                    } 
-                    if (!values.name) {
-                        errors.name = 'Invalid'
-                        return errors
-                    }
-                    if (!values.surname) {
-                        errors.surname = 'Invalid'
-                        return errors
-                    }
-                    if (values.password.length <= 5) {
-                        errors.password = "Invalid"
-                        return errors
-                    }
-                }}
+                    <TextField 
+                    className='loginPanelInput' 
+                    id='name' 
+                    type='text' 
+                    label='Имя' 
+                    data-testid='name'/>
 
-                render={ ({ handleSubmit}) => {
-                    return (
-                        <form className='loginPanelForm' onSubmit={handleSubmit}>
+                    <TextField 
+                    className='loginPanelInput' 
+                    id='surname' 
+                    type='text' 
+                    label='Фамилия' 
+                    data-testid='surname'/>
 
-                            <div className='loginPanelTextFields'>
-                                <Field className='loginPanelInput' id='email' type='email' name='email' data-testid='email'/>
+                    <TextField 
+                    className='loginPanelInput' 
+                    id='password' 
+                    type='password' 
+                    label='Пароль' 
+                    data-testid='password'/>
+                </div>
 
-                                <Field className='loginPanelInput' id='name' type='text' name='name' data-testid='name'/>
+                <input 
+                className='submit input' 
+                type='submit' 
+                value='Зарегистрироваться' 
+                data-testid='registerButton' 
+                onClick={(e) => {
+                    e.preventDefault()
+                    let email = document.querySelector('#email').value
+                    let name = document.querySelector('#name').value
+                    let surname = document.querySelector('#surname').value
+                    let password = document.querySelector('#password').value
+                    props.register(email, password, name, surname)
+                }}/>
 
-                                <Field className='loginPanelInput' id='surname' type='text' name='surname' data-testid='surname'/>
-
-                                <Field className='loginPanelInput' id='password' type='password' name='password' data-testid='password'/>
-                            </div>
-
-                            <input className='submit input' type='submit' value='Зарегистрироваться' data-testid='registerButton'/>
-
-                            <div className ='panelSwitch'>
-                                <div className='panelSwitchText'>Уже зарегестрированны?</div>
-                                <button className='panelSwitchButton' data-testid="switchButton" onClick={(e) => {
-                                    e.preventDefault()
-                                    props.switchButton()
-                                }}>Войти</button>
-                            </div>
-                        </form>
-                    )
-                }}
-            />
-            
+                <div className ='panelSwitch'>
+                    <div className='panelSwitchText'>Уже зарегестрированны?</div>
+                    <button className='panelSwitchButton' data-testid="switchButton" onClick={(e) => {
+                        e.preventDefault()
+                        props.switchButton()
+                    }}>Войти</button>
+                </div>
+            </form>
         </div>
     )
 }
 
 const EnhancedRegistration = connect(
     (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-    { register }
+    { authenticate, register }
 )(Registration)
 
 export {EnhancedRegistration as Registration} 

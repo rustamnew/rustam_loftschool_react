@@ -10,7 +10,7 @@ export class Map extends React.Component {
         mapboxgl.accessToken = 'pk.eyJ1IjoicnVzdGFtbmV3IiwiYSI6ImNraTA5ajg2eTBpaGQyc3Frc3Q4eDl1YmMifQ.f62dquorxx35MBx07qc8-g'
         this.map = new mapboxgl.Map({
             container: this.mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v9',
+            style: 'mapbox://styles/mapbox/light-v10',
             center: [30.318359, 59.941264],
             zoom: 10,
         })
@@ -20,11 +20,56 @@ export class Map extends React.Component {
     }
     
     drawLine = (coords) => {
+        console.log(coords[0])
         this.map.flyTo({
           center: coords[0],
           zoom: 15
         });
-       
+
+        
+        this.map.addSource('markers', {
+          "type": "geojson",
+          "data": {
+              "type": "FeatureCollection",
+              "features": [{
+                  "type": "Feature",
+                  "geometry": {
+                      "type": "Point",
+                      "coordinates": coords[0]
+                  },
+                  "properties": {
+                      "modelId": 1,
+                  },
+              }]
+          }
+      });
+      this.map.addLayer({
+          "id": "circle1",
+          "source": "markers",
+          "type": "circle",
+          "paint": {
+              "circle-radius": 25,
+              "circle-color": "#ffc617",
+              "circle-opacity": 1,
+              "circle-stroke-width": 0,
+          },
+          "filter": ["==", "modelId", 1],
+      });
+      this.map.addLayer({
+        "id": "circle2",
+        "source": "markers",
+        "type": "circle",
+        "paint": {
+            "circle-radius": 36,
+            "circle-color": "#ffc617",
+            "circle-opacity": 0.3,
+            "circle-stroke-width": 0,
+        },
+        "filter": ["==", "modelId", 1],
+    });
+      
+
+
         this.map.addLayer({
           id: "route",
           type: "line",
