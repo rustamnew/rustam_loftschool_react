@@ -20,29 +20,45 @@ export class Map extends React.Component {
     }
     
     drawLine = (coords) => {
-        console.log(coords[0])
-        this.map.flyTo({
-          center: coords[0],
-          zoom: 15
-        });
+      let mapLayer = this.map.getLayer('route')
+      let mapSource = this.map.getSource('line')
+      if(typeof mapLayer !== 'undefined') {
+        this.map.removeLayer('route').removeLayer('circle1').removeLayer('circle2').removeSource('line').removeSource('markers');
+      }
+      console.log(coords[0])
+      this.map.flyTo({
+      center: coords[0],
+      zoom: 15
+    });
 
-        
-        this.map.addSource('markers', {
-          "type": "geojson",
-          "data": {
-              "type": "FeatureCollection",
-              "features": [{
-                  "type": "Feature",
-                  "geometry": {
-                      "type": "Point",
-                      "coordinates": coords[0]
-                  },
-                  "properties": {
-                      "modelId": 1,
-                  },
-              }]
+      this.map.addSource('line', {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: coords
           }
+        }
+      })
+      this.map.addSource('markers', {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": coords[0]
+                },
+                "properties": {
+                    "modelId": 1,
+                },
+            }]
+        }
       });
+
       this.map.addLayer({
           "id": "circle1",
           "source": "markers",
@@ -68,32 +84,20 @@ export class Map extends React.Component {
         "filter": ["==", "modelId", 1],
     });
       
-
-
-        this.map.addLayer({
-          id: "route",
-          type: "line",
-          source: {
-            type: "geojson",
-            data: {
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "LineString",
-                coordinates: coords
-              }
-            }
-          },
-          layout: {
-            "line-join": "round",
-            "line-cap": "round"
-          },
-          paint: {
-            "line-color": "#ffc617",
-            "line-width": 8
-          }
-        });
-      };
+      this.map.addLayer({
+        id: "route",
+        type: "line",
+        source: 'line',
+        layout: {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        paint: {
+          "line-color": "#ffc617",
+          "line-width": 8
+        }
+      });
+    };
     render() {
         return <div className='map-wrapper'>
             <Route path='/main/home' component={() => <Address drawLine={this.drawLine}/>}/>
