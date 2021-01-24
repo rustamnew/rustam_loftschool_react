@@ -34,6 +34,7 @@ const Login = (props) => {
                     type='email' 
                     data-testid='email'
                     id='email'
+                    defaultValue='test@test.com'
                     />
                     
                     <TextField 
@@ -42,6 +43,7 @@ const Login = (props) => {
                     type='password' 
                     data-testid='password'
                     id='password'
+                    defaultValue='123123'
                     />
                 </div>
                 
