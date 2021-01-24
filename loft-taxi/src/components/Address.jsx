@@ -184,12 +184,12 @@ const Address = (props) => {
                     e.preventDefault();
                     let address1 = document.querySelector('#select1').value
                     let address2 = document.querySelector('#select2').value
-                    this.props.route(address1, address2)
+                    props.route(address1, address2)
                     if (address1 && address2) {
                         let waitForBuildRoute = () => {
                             if (localStorage.route) {
                                 console.log(JSON.parse(localStorage.route))
-                                this.props.drawLine(JSON.parse(localStorage.route))
+                                props.drawLine(JSON.parse(localStorage.route))
 
                             } else {
                                 console.log('loading')
