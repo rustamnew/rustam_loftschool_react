@@ -135,8 +135,14 @@ const Address = (props) => {
         <div className='address' id='address'>
             <form id='addressForm' ref={addressForm} className='addressForm'>
                 <div className='selectors' id='selectors'>
-                    <select className='selector' id='select1' form='addressForm' onChange={(e) => {addressFilter(e)}} data-testid='select1'/>
-                    <select className='selector' id='select2' form='addressForm' onChange={(e) => {addressFilter(e)}} data-testid='select2'/>
+                    <div className="selectors__row">
+                        <label className='selectorLabel' htmlFor="select1">Откуда:</label>
+                        <select className='selector' id='select1' form='addressForm' onChange={(e) => {addressFilter(e)}} data-testid='select1'/>
+                    </div>
+                    <div className="selectors__row">
+                        <label className='selectorLabel' htmlFor="select2">Куда:</label>
+                        <select className='selector' id='select2' form='addressForm' onChange={(e) => {addressFilter(e)}} data-testid='select2'/>
+                    </div>
                 </div>
             
                 <ul className='carsList'>
